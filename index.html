@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Beautiful Memories — A Romantic Story In Pictures</title>
+  <meta name="description"
+    content="A personal, romantic memory book and digital love letter celebrating our beautiful moments together.">
+
+  <!-- Elegant Typography with Offline System Font Fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-purple-theme">
+
+  <!-- Ambient Floating Heart Particles (Canvas) -->
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Floating Romantic Music Player -->
+  <div class="floating-music-widget" id="musicPlayer" title="Pesamale">
+    <button id="musicPlayBtn" class="floating-music-btn" aria-label="Play or pause Pesamale">
+      <svg id="musicPlayIcon" class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+      </svg>
+      <svg id="musicPauseIcon" class="icon hidden" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </button>
+    <div class="music-pill-info">
+      <span class="music-pill-title" id="musicTrackTitle">Pesamale</span>
+      <span class="music-pill-hint" id="musicStatus">Playing</span>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="bgAudio" src="Pesamale.mp3" autoplay preload="auto" loop playsinline></audio>
+
+  <!-- Romantic Entry Overlay (Guarantees Instant Music On Opening) -->
+  <div id="entryOverlay" class="entry-overlay hidden" aria-hidden="true">
+    <div class="entry-card">
+      <div class="entry-heart-glow">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <div class="entry-badge">Made with love, just for you</div>
+      <h2 class="entry-title">Our Beautiful Memories</h2>
+      <p class="entry-subtitle">A special story of us, dedicated to My Little Chabee</p>
+      <button id="entryBtn" class="entry-open-btn">
+        <span>Open With Music</span>
+        <span class="music-note-icon">🎵</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Immediate early audio unlock attempt
+    (function() {
+      try {
+        var audio = document.getElementById("bgAudio");
+        if (audio) {
+          audio.volume = 0.9;
+          var p = audio.play();
+          if (p !== undefined) {
+            p.catch(function() {
+              // If browser blocks immediate unmuted autoplay, show entry overlay
+              var overlay = document.getElementById("entryOverlay");
+              if (overlay) {
+                overlay.classList.remove("hidden");
+                overlay.removeAttribute("aria-hidden");
+              }
+            });
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-bg-glow" aria-hidden="true"></div>
+      <div class="hero-content">
+        <div class="romantic-badge">
+          <span class="badge-heart">&#10084;</span>
+          <span class="badge-text">Made with love, just for you</span>
+        </div>
+
+        <h1 class="hero-title">Our Beautiful Memories</h1>
+
+        <p class="hero-subtitle">
+          Every picture holds a memory, and every memory holds a piece of my heart.
+        </p>
+
+        <div class="hero-heart-container" aria-hidden="true">
+          <div class="pulse-heart">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#gallery" class="btn btn-primary btn-glow" id="exploreBtn">
+            <span>Explore Our Memories</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true">
+        <span>Scroll down</span>
+        <div class="scroll-dot"></div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 2: OUR MEMORIES — PERSONAL PHOTO GALLERY -->
+    <section class="gallery-section" id="gallery">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <div class="sub-header-tag">Captured Moments</div>
+          <h2 class="section-title">Our Memories</h2>
+          <p class="section-description">
+            A timeless collection of our smiles, journeys, and special moments together.
+          </p>
+          <div class="romantic-divider">
+            <span class="line"></span>
+            <span class="heart-symbol">&#10084;</span>
+            <span class="line"></span>
+          </div>
+        </div>
+
+        <!-- The Photo Grid Container (Populated with images from images/ folder) -->
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Dynamically populated from script.js -->
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SECTION 3: WORDS FROM MY HEART — DIRECTLY EDITABLE IN HTML -->
+    <section class="message-section" id="message">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <div class="sub-header-tag">A Personal Letter</div>
+          <h2 class="section-title">Words From My Heart</h2>
+          <p class="section-description">
+            Written from the deepest corner of my soul, just for you.
+          </p>
+          <div class="romantic-divider">
+            <span class="line"></span>
+            <span class="heart-symbol">&#10084;</span>
+            <span class="line"></span>
+          </div>
+        </div>
+
+        <div class="letter-card-wrapper">
+          <div class="letter-card" id="letterCard">
+            <!-- Decorative wax seal -->
+            <div class="letter-wax-seal" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </div>
+
+            <!-- Letter Date -->
+            <div class="letter-top-bar">
+              <div class="letter-date">Forever &amp; Always</div>
+            </div>
+
+            <!-- ============================================================= -->
+            <!-- YOU CAN EDIT YOUR LOVE MESSAGE DIRECTLY BELOW IN THIS BLOCK:  -->
+            <!-- ============================================================= -->
+            <div class="letter-salutation">My little Chabee,</div>
+
+            <div class="letter-body" id="letterBody">
+              <p>Thank you for every beautiful memory, every smile, every moment, and every little thing that became
+                special because of you.</p>
+
+              <p>I know there were times when I showed you my anger. But behind that anger was someone who was deeply
+                afraid of losing the person he loved so much. I was scared of losing you, and sometimes I didn't know
+                how to express that fear properly. I never wanted to hurt you. I never wanted to make you feel like you
+                were a bad person, and I never wanted you to think that I could see you that way. I'm sorry for the
+                moments when my feelings came out in the wrong way.</p>
+
+              <p>Maybe you understood me differently from how I wanted you to. I know I cannot change what you felt, and
+                I respect your feelings, too.</p>
+
+              <p>Chabee, whenever you think of me, I hope you'll remember this little page. Open this link
+                whenever you miss our memories, whenever you want to remember us, or whenever you simply want to see a
+                little part of our story again. Everything here exists because those moments meant so much to
+                me.</p>
+
+              <p>I'm always with you in my heart, even if I'm far away.</p>
+
+              <p>Sometimes, I feel like my presence in your life might be holding you back, and that is the last thing I
+                ever want to do. I never want my love to become a burden to you. I want you to be happy, to grow, to
+                follow your dreams, and to live your life freely.</p>
+
+              <p>But if your heart ever wants to find its way back to me, please know that you don't have to be afraid
+                to come to me. You don't have to have everything figured out. You don't have to pretend to be okay. Your
+                Shehan is still here, with the same love and care he always wanted to give you.</p>
+
+              <p>I never needed anything extraordinary from you. Your love, your care, your little smiles, your time,
+                and the feeling that I mattered to you were enough to make me happy. Those little things meant the world
+                to me.</p>
+
+              <p>And Chabee, if there is one thing I wish you would never take away from our story, it is the love we
+                shared. I don't want to lose the little connection that reminds me that we were once such an important
+                part of each other's lives.</p>
+
+              <p>Please don't forget me completely. Please don't let our memories become something that never mattered.
+                I know life can change, and I know I cannot ask you to feel something you no longer feel. But I hope
+                there will always be a little corner in your heart where our story remains.</p>
+
+              <p>You know my story, too. You know the parts of me that I don't show to everyone. You knew my heart, my
+                fears, and the person I was behind everything. When you loved me, I believed that I had finally found
+                someone who understood me and wouldn't leave me feeling alone with everything I carried inside.</p>
+
+              <p>That's why this means so much to me, Chabee. The thought of losing you and having to face that
+                emptiness alone scares me more than I can explain.</p>
+
+              <p>I'm not asking you to feel guilty, and I'm not asking you to come back because you feel sorry for me.
+                If you ever choose me again, I want it to be because your heart genuinely wants me there.</p>
+
+              <p>But if there is still love in your heart for me, even a little, I hope you won't be afraid to tell me.
+              </p>
+
+              <p>One day, if you can look into my heart again and say just three words — “I love you, Shehan” —
+                I think that moment would mean more to me than a thousand other things.</p>
+
+              <p>Those words are not something I can demand from you. I just want you to know how deeply I would
+                treasure them if they ever came from your heart again.</p>
+
+              <p>No matter how many days pass, the memories we created will always have a special place in mine. Every
+                photograph, every smile, every conversation, and every little moment will always remind me of the
+                happiness we once shared.</p>
+
+              <p>I don't know what the future holds for us. I don't know whether our paths will meet again or whether
+                life has a different plan. But I know that the love I felt for you was real, and the memories I made
+                with you will always mean something to me.</p>
+
+              <p>I'm still here, Chabee. I'm waiting with hope, not because I want to stop you from living your
+                life, but because a part of my heart still wishes that our story might have another chapter.
+              </p>
+
+              <p>If you ever want to talk, if you ever miss me, or if you ever feel that you want to try again, you can
+                reach out to me. You don't have to be perfect, and we don't have to have all the answers. We can simply
+                start by talking honestly, understanding each other, and taking things one step at a time.</p>
+
+              <p>Thank you for being part of my story. Thank you for every memory, every smile, every moment, and every
+                little thing that became special because of you.</p>
+
+
+
+              <p class="letter-closing-highlight">My love will never end.</p>
+            </div>
+
+            <p>And somewhere in my heart, a little part of me will always be hoping for us — for as long as that hope
+              remains.</p>
+
+            <div class="letter-signoff">
+              <span class="signoff-phrase">Forever yours,</span>
+              <span class="signoff-heart">&#10084;</span>
+              <p class="letter-closing-highlight">Your Shehan.</p>
+            </div>
+            <!-- ============================================================= -->
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 4: THANK YOU FOR ALL THE MEMORIES -->
+    <section class="thank-you-section" id="thank-you">
+      <div class="thank-you-bg-elements" aria-hidden="true">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+      </div>
+      <div class="section-container">
+        <div class="thank-you-card">
+          <div class="thank-you-heart-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </div>
+          <h2 class="thank-you-title">Thank You for All the Memories</h2>
+
+          <div class="thank-you-text">
+            <p>Some memories become stories, some become photographs, and some stay in our hearts forever.</p>
+            <p>Thank you for every moment, every smile, and every memory.</p>
+            <p>Whatever tomorrow brings, I will always be grateful for the beautiful moments we shared.</p>
+            <p class="highlight-quote">Thank you for being a part of my story.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-heart">&#10084;</div>
+      <p class="footer-credit">Made with love, from my heart to yours.</p>
+      <p class="footer-subtext">Our memories are timeless treasures kept safe right here.</p>
+    </div>
+  </footer>
+
+  <!-- FLOATING CONTROLS: BACK TO TOP -->
+  <button id="backToTopBtn" class="back-to-top" aria-label="Back to top of page" title="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+
+  <!-- LIGHTBOX MODAL (PHOTO ENLARGEMENT) -->
+  <div class="lightbox-modal hidden" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Photo Lightbox"
+    hidden>
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+
+    <div class="lightbox-container">
+      <!-- Top controls -->
+      <div class="lightbox-header">
+        <span class="lightbox-counter" id="lightboxCounter">1 / 1</span>
+        <div class="lightbox-header-actions">
+          <a id="lightboxDownloadBtn" class="lightbox-btn" download title="Download original photo"
+            aria-label="Download original photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span class="btn-text">Download</span>
+          </a>
+          <button id="lightboxCloseBtn" class="lightbox-btn close-btn" title="Close lightbox (Esc)"
+            aria-label="Close lightbox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main image stage -->
+      <div class="lightbox-body">
+        <button id="lightboxPrevBtn" class="lightbox-nav-btn prev-btn" title="Previous photo"
+          aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <div class="lightbox-image-stage">
+          <img id="lightboxImage" src="" alt="Enlarged memory view" class="lightbox-img">
+          <video id="lightboxVideo" class="lightbox-video hidden" controls playsinline preload="metadata"></video>
+        </div>
+
+        <button id="lightboxNextBtn" class="lightbox-nav-btn next-btn" title="Next photo" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Caption bar -->
+      <div class="lightbox-footer">
+        <p id="lightboxCaption" class="lightbox-caption"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
